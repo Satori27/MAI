@@ -1,1 +1,1 @@
-2_sem
+2_sem of MAI
