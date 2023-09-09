@@ -1,0 +1,15 @@
+Target = sort
+CXX = g++
+CFLAGS = -O2 -g -pedantic -std=c++17 -Wall -Wextra
+LFLAGS = 
+$(Target) : main.o func.o
+	$(CXX) $(LFLAGS) main.o func.o -o $(Target)
+
+main.o : main.cpp
+	$(CXX) $(CFLAGS) -c main.cpp
+
+main1.o : func.cpp func.h
+	$(CXX) $(CFLAGS) -c func.cpp
+
+clean : 
+	rm  -rf $(Target) *.o
