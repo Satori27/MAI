@@ -1,17 +1,17 @@
+Target = sort
 CXX = g++
-CFLAGS = -Wall
-LFLAGS =
+CFLAGS = -O2 -g -pedantic -std=c++17 -Wall -Wextra
+LFLAGS = 
+SRC = $(wildcard *.cpp)
+OBJ = $(patsubst %.cpp, %.o, $(SRC))
+.SUFFIXES: .cpp .o
 
-# all: program
+$(Target): $(OBJ)
+	$(CXX) $(LFLAGS) -o $(Target) $(OBJ) 
 
-program : main.o func.o
-	$(CXX) $(LFLAGS) -o program main.o func.o
+%.o : %.cpp
+	$(CXX) $(CFLAGS) -c $< -o $@
 
-main.o : main.cpp func.h
-	$(CXX) $(CFLAGS) -c main.cpp
+clean: 
+	rm -rf $(Target) *.o
 
-func.o : func.cpp func.h
-	$(CXX) $(CFLAGS) -c func.cpp
-
-clean :
-	rm -rf *.o program

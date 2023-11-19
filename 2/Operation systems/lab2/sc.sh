@@ -1,0 +1,1 @@
+gcc -pthread -o main 1lab.c
