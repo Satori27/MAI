@@ -1,0 +1,3 @@
+Diyorov 1 2 3
+Diyorov 3 2 1
+Zaycev 4 5 6

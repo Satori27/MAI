@@ -1,29 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const int MAX_SIZE = 1000;
 
 int PrimeCount(int A, int B){
-        printf("Function from 2\n");
-    // Создание вектора для отметки простых чисел
-    char* isPrime = malloc(sizeof(char)*(B + 1));
-    for(int i=0;i<B+1;++i){
-        isPrime[i] = 1;
+    printf("Function from 2\n");
+    char* is_prime = malloc(sizeof(char)*(B + 1));
+    for(int is_prime_index=0;is_prime_index<B+1;++is_prime_index){
+        is_prime[is_prime_index] = 1;
     }
     
-    isPrime[0] = 0;
-    isPrime[1] = 0;
+    is_prime[0] = 0;
+    is_prime[1] = 0;
     
-    for (int i = 2; i * i <= B; i++) {
-        if (isPrime[i]) {
-            for (int j = i * i; j <= B; j += i) {
-                isPrime[j] = 0;
+    for (int is_prime_index = 2; is_prime_index * is_prime_index <= B; is_prime_index++) {
+        if (is_prime[is_prime_index]) {
+            for (int second_index = is_prime_index * is_prime_index; second_index <= B; second_index += is_prime_index) {
+                is_prime[second_index] = 0;
             }
         }
     }
     int count = 0;
-    for (int i = A; i <= B; i++) {
-        if (isPrime[i]) {
+    for (int check_prime = A; check_prime <= B; check_prime++) {
+        if (is_prime[check_prime]) {
             count++;
         }
     }
@@ -32,36 +30,26 @@ int PrimeCount(int A, int B){
 }
 
 
-
-char* translation(long x){
+char* translation(long number){
     printf("Function from 2\n");
-    int n = x;
+    int number_one = number;
     int length = 0;
     
-    // Нахождение длины двоичного числа
-    while (n > 0) {
-        n = n / 3;
+    while (number_one > 0) {
+        number_one = number_one / 3;
         length++;
     }
     
-    // Выделение памяти для массива char
     char* binary = malloc((length + 1) * sizeof(char));
     
-    // Заполнение массива char с конца
-    int i = length - 1;
-    while (x > 0) {
-        binary[i] = (x % 3) + '0';
-        x = x / 3;
-        i--;
+    int binary_index = length - 1;
+    while (number > 0) {
+        binary[binary_index] = (number % 3) + '0';
+        number = number / 3;
+        binary_index--;
     }
     
-    binary[length] = '\0';  // Добавление завершающего нуля
+    binary[length] = '\0'; 
     
     return binary;
 }
-
-// int main(){
-//     char* ans = translation(11);
-//     printf("%s\n", ans);
-//     free(ans);
-// }

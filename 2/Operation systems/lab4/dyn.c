@@ -2,19 +2,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void check(void* value, void* ok_val, char* msg){
-    if(value!=ok_val){
-        printf("%s\n", msg);
+void check(void* value, void* ok_value, char* message){
+    if(value!=ok_value){
+        printf("%s\n", message);
     }
 }
-void check_wrong(void* value, void* wrong_val, char* msg){
-    if(value==wrong_val){
-        printf("%s\n", msg);
+void check_wrong(void* value, void* wrong_value, char* message){
+    if(value==wrong_value){
+        printf("%s\n", message);
     }
 }
-void check1(int value, int wrong_val, char* msg){
-    if(value!=wrong_val){
-        printf("%s\n", msg);
+void check_int(int value, int wrong_value, char* message){
+    if(value!=wrong_value){
+        printf("%s\n", message);
     }
 }
 
@@ -25,7 +25,7 @@ const char* PRIME_COUNT_NAME = "PrimeCount";
 const char* TRANSLATION_NAME = "translation";
 
 int main(){
-    int LibNum = 1;
+    int library_number = 1;
     void* handle = dlopen(DYN_LIB_ONE, RTLD_LAZY);
     check_wrong(handle, NULL, "Can't open dynamic library");
     int (*PrimeCount)(int, int);
@@ -36,13 +36,13 @@ int main(){
     char* error = dlerror();
     check(error, NULL, error);
 
-    char* ans;
-    int A, B, answer, q;
+    char* translation_answer;
+    int A, B, prime_count_answer, query;
     long x;
-    while(scanf("%d", &q)>0){
-        if(q==0){
-            check1(dlclose(handle), 0, "Error in closing dynamic library");
-            if (LibNum) {
+    while(scanf("%d", &query)>0){
+        if(query==0){
+            check_int(dlclose(handle), 0, "Error in closing dynamic library");
+            if (library_number) {
                 handle = dlopen(DYN_LIB_TWO, RTLD_LAZY);
             } else {
                 handle = dlopen(DYN_LIB_ONE, RTLD_LAZY);
@@ -52,31 +52,31 @@ int main(){
             translation = dlsym(handle, TRANSLATION_NAME);
             error = dlerror();
             check(error, NULL, "Error");
-            printf("Current library: %d\n", LibNum+1);
-            LibNum = LibNum ^ 1;
+            printf("Current library: %d\n", library_number+1);
+            library_number = library_number ^ 1;
             continue;
         }
-        if(q==1){
+        if(query==1){
             printf("enter A, B\n");
             scanf("%d %d", &A, &B);
-            answer = PrimeCount(A,B);
+            prime_count_answer = PrimeCount(A,B);
             printf("1\n");
-            printf("Answer is: %d\n", answer);
+            printf("Answer is: %d\n", prime_count_answer);
             continue;
         }
-        if(q==2){
+        if(query==2){
             printf("Enter number\n");
             scanf("%ld", &x);
-            ans = translation(x);
-            printf("Answer is: %s\n", ans);
-            free(ans);
-            ans=NULL;
+            translation_answer = translation(x);
+            printf("Answer is: %s\n", translation_answer);
+            free(translation_answer);
+            translation_answer=NULL;
             continue;
         }
-        if(q==-1){
+        if(query==-1){
             break;
         }
     }
     printf("End\n");
-    check1(dlclose(handle), 0, "Error closing dynamic library!\n");
+    check_int(dlclose(handle), 0, "Error closing dynamic library!\n");
 }

@@ -2,49 +2,47 @@
 #include <stdlib.h>
 
 extern int PrimeCount(int A, int B);
-extern char* translation(long x);
+extern char* translation(long number);
 
-void check(void* value, void* ok_val, char* msg){
-    if(value!=ok_val){
-        printf("%s\n", msg);
+void check(void* value, void* ok_value, char* message){
+    if(value!=ok_value){
+        printf("%s\n", message);
     }
 }
-void check_wrong(void* value, void* wrong_val, char* msg){
-    if(value==wrong_val){
-        printf("%s\n", msg);
+void check_wrong(void* value, void* wrong_value, char* message){
+    if(value==wrong_value){
+        printf("%s\n", message);
     }
 }
-void check1(int value, int wrong_val, char* msg){
-    if(value!=wrong_val){
-        printf("%s\n", msg);
+void check1(int value, int wrong_value, char* message){
+    if(value!=wrong_value){
+        printf("%s\n", message);
     }
 }
 
 
 int main(){
-    int LibNum = 1;
-
-    char* ans;
-    int A, B, answer, q;
-    long x;
-    while(scanf("%d", &q)>0){
-        if(q==1){
+    char* translation_answer;
+    int A, B, prime_count_answer, query;
+    long number;
+    while(scanf("%d", &query)>0){
+        if(query==1){
             printf("enter A, B\n");
             scanf("%d %d", &A, &B);
-            answer = PrimeCount(A,B);
-            printf("Answer is: %d\n", answer);
+            prime_count_answer = PrimeCount(A,B);
+            printf("Answer is: %d\n", prime_count_answer);
             continue;
         }
-        if(q==2){
+        if(query==2){
             printf("Enter number\n");
-            scanf("%ld", &x);
-            ans = translation(x);
-            printf("Answer is: %s\n", ans);
-            free(ans);
-            ans=NULL;
+            scanf("%ld", &number);
+            translation_answer = translation(number);
+            printf("Answer is: %s\n", translation_answer);
+            free(translation_answer);
+            translation_answer=NULL;
             continue;
         }
-        if(q==-1){
+        if(query==-1){
             break;
         }
     }
